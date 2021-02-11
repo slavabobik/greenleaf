@@ -1,73 +1,73 @@
 package greenleaf
 
-// Filter represents builder for a find operations.
-type Filter struct {
+// FilterBuilder represents builder for a find operations.
+type FilterBuilder struct {
 	selector Document
 }
 
-// NewFilter returns a *Filter with empty container of find selector.
-func NewFilter() *Filter {
-	return &Filter{
+// Filter returs a new instance of a FilterBuilder.
+func Filter() *FilterBuilder {
+	return &FilterBuilder{
 		selector: make(Document),
 	}
 }
 
 // Eq adds $eq selector.
-func (f *Filter) Eq(field string, value interface{}) *Filter {
+func (f *FilterBuilder) Eq(field string, value interface{}) *FilterBuilder {
 	return f.addSelector(field, "$eq", value)
 }
 
 // Ne adds $ne selector.
-func (f *Filter) Ne(field string, value interface{}) *Filter {
+func (f *FilterBuilder) Ne(field string, value interface{}) *FilterBuilder {
 	return f.addSelector(field, "$ne", value)
 }
 
 // InInt adds $in operator with int slice values.
-func (f *Filter) InInt(field string, value []int) *Filter {
+func (f *FilterBuilder) InInt(field string, value []int) *FilterBuilder {
 	return f.addSelector(field, "$in", value)
 }
 
 // InString adds $in operator with string slice values.
-func (f *Filter) InString(field string, value []string) *Filter {
+func (f *FilterBuilder) InString(field string, value []string) *FilterBuilder {
 	return f.addSelector(field, "$in", value)
 }
 
 // NinInt adds $nin selector with int slice values.
-func (f *Filter) NinInt(field string, value []int) *Filter {
+func (f *FilterBuilder) NinInt(field string, value []int) *FilterBuilder {
 	return f.addSelector(field, "$nin", value)
 }
 
 // NinString adds $nin selector with int slice values.
-func (f *Filter) NinString(field string, value []string) *Filter {
+func (f *FilterBuilder) NinString(field string, value []string) *FilterBuilder {
 	return f.addSelector(field, "$nin", value)
 }
 
 // Gt adds $gt selector.
-func (f *Filter) Gt(field string, value interface{}) *Filter {
+func (f *FilterBuilder) Gt(field string, value interface{}) *FilterBuilder {
 	return f.addSelector(field, "$gt", value)
 }
 
 // Gte adds $gte selector.
-func (f *Filter) Gte(field string, value interface{}) *Filter {
+func (f *FilterBuilder) Gte(field string, value interface{}) *FilterBuilder {
 	return f.addSelector(field, "$gte", value)
 }
 
 // Lt adds $lt selector.
-func (f *Filter) Lt(field string, value interface{}) *Filter {
+func (f *FilterBuilder) Lt(field string, value interface{}) *FilterBuilder {
 	return f.addSelector(field, "$lt", value)
 }
 
 // Lte adds $lte selector.
-func (f *Filter) Lte(field string, value interface{}) *Filter {
+func (f *FilterBuilder) Lte(field string, value interface{}) *FilterBuilder {
 	return f.addSelector(field, "$lte", value)
 }
 
 // Exists adds $exists selector.
-func (f *Filter) Exists(field string, value bool) *Filter {
+func (f *FilterBuilder) Exists(field string, value bool) *FilterBuilder {
 	return f.addSelector(field, "$exists", value)
 }
 
-func (f *Filter) addSelector(field string, operator string, value interface{}) *Filter {
+func (f *FilterBuilder) addSelector(field string, operator string, value interface{}) *FilterBuilder {
 	v, ok := f.selector[field]
 	if !ok {
 		f.selector[field] = M{operator: value}
@@ -78,7 +78,7 @@ func (f *Filter) addSelector(field string, operator string, value interface{}) *
 	return f
 }
 
-// Exec returns document for using in mongodb find operations.
-func (f *Filter) Exec() Document {
+// Build returns document for using in mongodb find operations.
+func (f *FilterBuilder) Build() Document {
 	return f.selector
 }

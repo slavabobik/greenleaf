@@ -1,29 +1,28 @@
 package greenleaf
 
-// Update represents builder for an update queries.
-type Update struct {
+// UpdateBuilder represents builder for an update queries.
+type UpdateBuilder struct {
 	operations Document
 }
 
-// NewUpdate returns a *Update with empty container of update operations.
-func NewUpdate() *Update {
-	return &Update{
+// Update returs a new instance of a UpdateBuilder.
+func Update() *UpdateBuilder {
+	return &UpdateBuilder{
 		operations: make(Document),
 	}
 }
 
-// SetValue adds $set operator.
-// For array values use SetValues method.
-func (u *Update) SetValue(field string, value interface{}) *Update {
+// Set adds $set operator.
+func (u *UpdateBuilder) Set(field string, value interface{}) *UpdateBuilder {
 	return u.addOperator("$set", field, value)
 }
 
 // Unset adds $unset operator.
-func (u *Update) Unset(field string) *Update {
+func (u *UpdateBuilder) Unset(field string) *UpdateBuilder {
 	return u.addOperator("$unset", field, "")
 }
 
-func (u *Update) addOperator(operator, field string, value interface{}) *Update {
+func (u *UpdateBuilder) addOperator(operator, field string, value interface{}) *UpdateBuilder {
 	op, ok := u.operations[operator]
 	if !ok {
 		u.operations[operator] = M{field: value}
@@ -33,7 +32,7 @@ func (u *Update) addOperator(operator, field string, value interface{}) *Update 
 	return u
 }
 
-// Exec returns document for using in mongodb update operations.
-func (u *Update) Exec() Document {
+// Build returns document for using in mongodb update operations.
+func (u *UpdateBuilder) Build() Document {
 	return u.operations
 }
