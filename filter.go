@@ -14,50 +14,50 @@ func NewFilter() *Filter {
 
 // Eq adds $eq selector.
 func (f *Filter) Eq(field string, value interface{}) *Filter {
-	return f.addSingleValue(field, "$eq", value)
+	return f.addSelector(field, "$eq", value)
 }
 
 // Ne adds $ne selector.
 func (f *Filter) Ne(field string, value interface{}) *Filter {
-	return f.addSingleValue(field, "$ne", value)
+	return f.addSelector(field, "$ne", value)
 }
 
-// In adds $in selector.
-func (f *Filter) In(field string, values ...interface{}) *Filter {
-	return f.addSlice(field, "$in", values)
+// In adds $in operator with int slice values.
+func (f *Filter) In(field string, value interface{}) *Filter {
+	return f.addSelector(field, "$in", value)
 }
 
 // Nin adds $nin selector.
-func (f *Filter) Nin(field string, values ...interface{}) *Filter {
-	return f.addSlice(field, "$nin", values)
+func (f *Filter) Nin(field string, value interface{}) *Filter {
+	return f.addSelector(field, "$nin", value)
 }
 
 // Gt adds $gt selector.
 func (f *Filter) Gt(field string, value interface{}) *Filter {
-	return f.addSingleValue(field, "$gt", value)
+	return f.addSelector(field, "$gt", value)
 }
 
 // Gte adds $gte selector.
 func (f *Filter) Gte(field string, value interface{}) *Filter {
-	return f.addSingleValue(field, "$gte", value)
+	return f.addSelector(field, "$gte", value)
 }
 
 // Lt adds $lt selector.
 func (f *Filter) Lt(field string, value interface{}) *Filter {
-	return f.addSingleValue(field, "$lt", value)
+	return f.addSelector(field, "$lt", value)
 }
 
 // Lte adds $lte selector.
 func (f *Filter) Lte(field string, value interface{}) *Filter {
-	return f.addSingleValue(field, "$lte", value)
+	return f.addSelector(field, "$lte", value)
 }
 
 // Exists adds $exists selector.
 func (f *Filter) Exists(field string, value bool) *Filter {
-	return f.addSingleValue(field, "$exists", value)
+	return f.addSelector(field, "$exists", value)
 }
 
-func (f *Filter) addSingleValue(field string, operator string, value interface{}) *Filter {
+func (f *Filter) addSelector(field string, operator string, value interface{}) *Filter {
 	v, ok := f.selector[field]
 	if !ok {
 		f.selector[field] = M{operator: value}
@@ -65,17 +65,6 @@ func (f *Filter) addSingleValue(field string, operator string, value interface{}
 	}
 
 	v[operator] = value
-	return f
-}
-
-func (f *Filter) addSlice(field, operator string, values []interface{}) *Filter {
-	v, ok := f.selector[field]
-	if !ok {
-		f.selector[field] = M{operator: values}
-		return f
-	}
-
-	v[operator] = values
 	return f
 }
 
