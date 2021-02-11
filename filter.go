@@ -22,13 +22,23 @@ func (f *Filter) Ne(field string, value interface{}) *Filter {
 	return f.addSelector(field, "$ne", value)
 }
 
-// In adds $in operator with int slice values.
-func (f *Filter) In(field string, value interface{}) *Filter {
+// InInt adds $in operator with int slice values.
+func (f *Filter) InInt(field string, value []int) *Filter {
 	return f.addSelector(field, "$in", value)
 }
 
-// Nin adds $nin selector.
-func (f *Filter) Nin(field string, value interface{}) *Filter {
+// InString adds $in operator with string slice values.
+func (f *Filter) InString(field string, value []string) *Filter {
+	return f.addSelector(field, "$in", value)
+}
+
+// NinInt adds $nin selector with int slice values.
+func (f *Filter) NinInt(field string, value []int) *Filter {
+	return f.addSelector(field, "$nin", value)
+}
+
+// NinString adds $nin selector with int slice values.
+func (f *Filter) NinString(field string, value []string) *Filter {
 	return f.addSelector(field, "$nin", value)
 }
 
