@@ -27,21 +27,26 @@ import (
 )
 
 func main() {
-	ctx := context.TODO()
+    ctx := context.TODO()
 	client, _ := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
 	collection := client.Database("testing").Collection("test")
-	collection.InsertOne(ctx, bson.M{"pet": "dog"})
+	doc := greenleaf.M{"name": "Jhon", "tags": []string{"fast", "furious"}, "score": 128, "coins": 10000, "active": true}
+	collection.InsertOne(ctx, doc)
 
 	filter := greenleaf.
 		Filter().
-		Eq("pet", "dog").
+		Eq("name", "Jhon").
+		InString("tags", []string{"fast", "furious"}).
+		Gt("score", 100).
+		Lte("score", 200).
+		Exists("active", true).
 		Build()
 
 	result := collection.FindOne(ctx, filter)
 	var document bson.M
 	result.Decode(&document)
 
-	fmt.Print(document, "xxx")
+	fmt.Print(document)
 }
 
 ```
