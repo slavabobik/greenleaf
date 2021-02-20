@@ -1,4 +1,4 @@
-# greenleaf - simple query builder for MongoDB
+# 🌱 greenleaf - simple and type safe query builder for MongoDB
 
 [![godoc](https://godoc.org/github.com/slavabobik/greenleaf?status.png)](https://godoc.org/github.com/slavabobik/greenleaf)
     
@@ -27,7 +27,7 @@ import (
 )
 
 func main() {
-    ctx := context.TODO()
+	ctx := context.TODO()
 	client, _ := mongo.Connect(ctx, options.Client().ApplyURI("mongodb://localhost:27017"))
 	collection := client.Database("testing").Collection("test")
 	doc := greenleaf.M{"name": "Jhon", "tags": []string{"fast", "furious"}, "score": 128, "coins": 10000, "active": true}
@@ -35,10 +35,10 @@ func main() {
 
 	filter := greenleaf.
 		Filter().
-		Eq("name", "Jhon").
+		EqString("name", "Jhon").
 		InString("tags", []string{"fast", "furious"}).
-		Gt("score", 100).
-		Lte("score", 200).
+		GtInt("score", 100).
+		LteInt("score", 200).
 		Exists("active", true).
 		Build()
 
