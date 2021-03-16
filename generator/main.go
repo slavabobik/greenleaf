@@ -1,4 +1,4 @@
-package greenleaf
+package main
 
 import (
 	"bytes"
@@ -27,7 +27,7 @@ var builtins = []string{
 	"uint8",
 }
 
-func generate() {
+func main() {
 
 	filterFuncTemplate := `
 // {{.Method}} ...	
