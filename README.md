@@ -14,7 +14,6 @@ To install use:
 ## Quick examples
 
 ```golang
-package main
 
 package main
 
