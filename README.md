@@ -1,5 +1,6 @@
 # 🌱 greenleaf - simple, type safe and easy to use query builder for MongoDB
 
+![build-img](https://github.com/slavabobik/greenleaf/actions/workflows/build.yml/badge.svg)
 [![godoc](https://godoc.org/github.com/slavabobik/greenleaf?status.png)](https://godoc.org/github.com/slavabobik/greenleaf)
     
 
