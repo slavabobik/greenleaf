@@ -1,4 +1,4 @@
-# 🌱 greenleaf - simple and type safe query builder for MongoDB
+# 🌱 greenleaf - simple, type safe and easy to use query builder for MongoDB
 
 [![godoc](https://godoc.org/github.com/slavabobik/greenleaf?status.png)](https://godoc.org/github.com/slavabobik/greenleaf)
     
@@ -14,14 +14,13 @@ To install use:
 ## Quick examples
 
 ```golang
+
 package main
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/slavabobik/greenleaf"
-	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -33,6 +32,7 @@ func main() {
 	doc := greenleaf.M{"name": "Jhon", "tags": []string{"fast", "furious"}, "score": 128, "coins": 10000, "active": true}
 	collection.InsertOne(ctx, doc)
 
+	// filter selector.
 	filter := greenleaf.
 		Filter().
 		EqString("name", "Jhon").
@@ -42,11 +42,14 @@ func main() {
 		Exists("active", true).
 		Build()
 
-	result := collection.FindOne(ctx, filter)
-	var document bson.M
-	result.Decode(&document)
+	// update selector.
+	update := greenleaf.
+		Update().
+		SetBool("is_active", true).
+		SetIntSlice("numbers", []int{1, 2, 3, 4}).
+		Build()
 
-	fmt.Print(document)
+	collection.FindOneAndUpdate(ctx, filter, update)
 }
 
 ```
