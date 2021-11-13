@@ -2,6 +2,7 @@
 
 ![build-img](https://github.com/slavabobik/greenleaf/actions/workflows/build.yml/badge.svg)
 [![godoc](https://godoc.org/github.com/slavabobik/greenleaf?status.png)](https://godoc.org/github.com/slavabobik/greenleaf)
+[![codecov](https://codecov.io/gh/slavabobik/greenleaf/branch/master/graph/badge.svg?token=XQ85I8ANL5)](https://codecov.io/gh/slavabobik/greenleaf)
     
 
 ## Installation
