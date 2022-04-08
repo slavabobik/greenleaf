@@ -4,4 +4,4 @@ package greenleaf
 type Document map[string]M
 
 // M ...
-type M map[string]interface{}
+type M map[string]any
