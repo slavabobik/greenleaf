@@ -35,11 +35,11 @@ func main() {
 	collection.InsertOne(ctx, doc)
 
 	filter := greenleaf.Filter(
-		Eq("name", "Jhon"),
-		In("tags", []string{"fast", "furious"}),
-		Gt("score", 100),
-		Lte("score", 200),
-		Exists("active", true),
+		greenleaf.Eq("name", "Jhon"),
+		greenleaf.In("tags", []string{"fast", "furious"}),
+		greenlea.fGt("score", 100),
+		greenleaf.Lte("score", 200),
+		greenleaf.Exists("active", true),
 	)
 }
 
