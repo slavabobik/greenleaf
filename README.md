@@ -44,7 +44,7 @@ func main() {
 	filter := greenleaf.Filter(
 		greenleaf.Eq("name", "Jhon"),
 		greenleaf.In("tags", []string{"fast", "furious"}),
-		greenlea.fGt("score", 100),
+		greenleaf.Gt("score", 100),
 		greenleaf.Lte("score", 200),
 		greenleaf.Exists("active", true),
 	)
