@@ -35,9 +35,9 @@ func main() {
 	doc := greenleaf.M{
 		"name": "Jhon", 
 		"tags": []string{"fast", "furious"},
-		 "score": 128,
-		  "coins": 10000, 
-		  "active": true,
+		"score": 128,
+		"coins": 10000, 
+		"active": true,
 	}
 	collection.InsertOne(ctx, doc)
 
