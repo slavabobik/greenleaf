@@ -48,6 +48,20 @@ func main() {
 		greenleaf.Lte("score", 200),
 		greenleaf.Exists("active", true),
 	)
+
+	skip := int64(0)
+	limit := int64(10)
+	pagination := greenleaf.Pagination{
+		Limit: &limit,
+		Skip:  &skip,
+		Sort: greenleaf.Sort{
+			"name": greenleaf.ASC,
+		},
+	}
+	paginationOption := greenleaf.PaginationOptions(pagination)
+
+	cur, err := collection.Find(ctx, filter, paginationOption)
+	// rest of the code
 }
 
 ```
