@@ -50,7 +50,7 @@ func Lte[T any](field string, value T) FilterDocument {
 	return createSelector(field, lteOperator, value)
 }
 
-// Exists creates a $exists query selector.
+// Exists creates an $exists query selector.
 func Exists(field string, value bool) FilterDocument {
 	return createSelector(field, existsOperator, value)
 }
