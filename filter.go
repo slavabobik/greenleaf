@@ -50,6 +50,34 @@ func Lte[T any](field string, value T) FilterDocument {
 	return createSelector(field, lteOperator, value)
 }
 
+func GtLt[T any](field string, gt T, lt T) FilterDocument {
+	return createCombinedSelector(field, M{
+		"$gt": gt,
+		"$lt": lt,
+	})
+}
+
+func GteLt[T any](field string, gte T, lt T) FilterDocument {
+	return createCombinedSelector(field, M{
+		"$gte": gte,
+		"$lt":  lt,
+	})
+}
+
+func GtLte[T any](field string, gt T, lte T) FilterDocument {
+	return createCombinedSelector(field, M{
+		"$gt":  gt,
+		"$lte": lte,
+	})
+}
+
+func GteLte[T any](field string, gte T, lte T) FilterDocument {
+	return createCombinedSelector(field, M{
+		"$gte": gte,
+		"$lte": lte,
+	})
+}
+
 // Exists creates an $exists query selector.
 func Exists(field string, value bool) FilterDocument {
 	return createSelector(field, existsOperator, value)
@@ -68,6 +96,12 @@ func Nin[T any](field string, value []T) FilterDocument {
 func createSelector(field string, operator operator, value any) FilterDocument {
 	return FilterDocument{
 		field: M{operator: value},
+	}
+}
+
+func createCombinedSelector(field string, value M) FilterDocument {
+	return FilterDocument{
+		field: value,
 	}
 }
 
